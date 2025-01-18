@@ -24,15 +24,15 @@
             webcam = new tmImage.Webcam(window.innerWidth, window.innerHeight, flip);
             await webcam.setup();
             await webcam.play();
-            window.requestAnimationFrame(loop);
+            // window.requestAnimationFrame(loop);
 
-            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            // document.getElementById("webcam-container").appendChild(webcam.canvas);
         }
 
-        async function loop() {
-            webcam.update();
-            window.requestAnimationFrame(loop);
-        }
+        // async function loop() {
+        //     webcam.update();
+        //     window.requestAnimationFrame(loop);
+        // }
 
         async function snapPhoto() {
             alert("Photo snapped!");
@@ -58,6 +58,25 @@
     </script>
 </head>
 <body>
+    <div id="container">
+        <video autoplay="true" id="videoElement">
+        
+        </video>
+    </div>
+    <script>
+        var video = document.querySelector("#videoElement");
+        var myStream;
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+          video.srcObject = stream;
+          myStream = stream
+        })
+        .catch(function (err0r) {
+          console.log("Something went wrong!");
+        });
+    }
+    </script>
     <div class="container">
         <div id="webcam-container"></div>
         <button class="snap-button" onclick="snapPhoto()"><i class="fas fa-camera"></i></button>
