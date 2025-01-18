@@ -1,0 +1,39 @@
+<!-- results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Door Analysis Results</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+
+        <h1>Door Analysis Results</h1>
+        <div id="results-container"></div>
+        <button onclick="goBack()">Back to Scan</button>
+    </div>
+
+    <script type="text/javascript">
+        function displayResults() {
+            const results = JSON.parse(localStorage.getItem('doorResults'));
+            const resultsContainer = document.getElementById('results-container');
+            results.forEach(result => {
+                const resultDiv = document.createElement('div');
+                resultDiv.classList.add('result');
+                resultDiv.innerHTML = `
+                    <p>${result.className}: ${result.probability * 100}%</p>
+                `;
+                resultsContainer.appendChild(resultDiv);
+            });
+        }
+
+        function goBack() {
+            window.location.href = 'scan.html';
+        }
+
+        window.onload = displayResults;
+    </script>
+</body>
+</html>

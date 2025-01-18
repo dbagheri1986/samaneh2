@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Door</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script type="text/javascript">
+        const URL = "https://teachablemachine.withgoogle.com/models/T5o6SMGsK/";
+
+        let model, webcam;
+
+        async function init() {
+            console.log("inside init");
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+
+            model = await tmImage.load(modelURL, metadataURL);
+
+            const flip = true;
+            webcam = new tmImage.Webcam(window.innerWidth, window.innerHeight, flip);
+            await webcam.setup();
+            await webcam.play();
+            window.requestAnimationFrame(loop);
+
+            document.getElementById("webcam-container").appendChild(webcam.canvas);
+        }
+
+        async function loop() {
+            webcam.update();
+            window.requestAnimationFrame(loop);
+        }
+
+        async function snapPhoto() {
+            alert("Photo snapped!");
+
+            // Save the current image to local storage
+            const capturedImage = webcam.canvas.toDataURL("image/png");
+            localStorage.setItem('capturedImage', capturedImage);
+            const prediction = await model.predict(webcam.canvas);
+            showResults(prediction, capturedImage);
+        }
+
+        function showResults(prediction, capturedImage) {
+            let results = prediction.map(p => ({ className: p.className, probability: p.probability.toFixed(2) }));
+            localStorage.setItem('doorResults', JSON.stringify(results));
+            window.location.href = "resultsFinal.html";
+        }
+
+        function exitPage() {
+            window.location.href = "page1.html";
+        }
+
+        window.onload = init;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div id="webcam-container"></div>
+        <button class="snap-button" onclick="snapPhoto()"><i class="fas fa-camera"></i></button>
+        <button class="exit-button" onclick="exitPage()"><i class="fas fa-times"></i></button>
+        <button class="flash-button"><i class="fas fa-bolt"></i></button>
+    </div>
+</body>
+</html>
