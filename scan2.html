@@ -19,68 +19,68 @@
 
 let model, webcam;
 
-async function init() {
-    console.log("inside init");
-    const modelURL = URL + "model.json";
-    const metadataURL = URL + "metadata.json";
+// async function init() {
+//     console.log("inside init");
+//     const modelURL = URL + "model.json";
+//     const metadataURL = URL + "metadata.json";
 
-    model = await tmImage.load(modelURL, metadataURL);
+//     model = await tmImage.load(modelURL, metadataURL);
 
-    const flip = true;
-    webcam = new tmImage.Webcam(window.innerWidth, window.innerHeight, flip);
-    await webcam.setup();
-    await webcam.play();
-    window.requestAnimationFrame(loop);
+//     const flip = true;
+//     webcam = new tmImage.Webcam(window.innerWidth, window.innerHeight, flip);
+//     await webcam.setup();
+//     await webcam.play();
+//     window.requestAnimationFrame(loop);
 
-    // document.getElementById("webcam-container").appendChild(webcam.canvas);
-}
+//     // document.getElementById("webcam-container").appendChild(webcam.canvas);
+// }
 
-async function loop() {
-    webcam.update();
-    window.requestAnimationFrame(loop);
-}
+// async function loop() {
+//     webcam.update();
+//     window.requestAnimationFrame(loop);
+// }
 
-async function snapPhoto() {
-    alert("Photo snapped!");
+// async function snapPhoto() {
+//     alert("Photo snapped!");
 
-    // Save the current image to local storage
-    const capturedImage = webcam.canvas.toDataURL("image/png");
-    localStorage.setItem('capturedImage', capturedImage);
-    const prediction = await model.predict(webcam.canvas);
-    showResults(prediction, capturedImage);
-}
+//     // Save the current image to local storage
+//     const capturedImage = webcam.canvas.toDataURL("image/png");
+//     localStorage.setItem('capturedImage', capturedImage);
+//     const prediction = await model.predict(webcam.canvas);
+//     showResults(prediction, capturedImage);
+// }
 
-function showResults(prediction, capturedImage) {
-    let results = prediction.map(p => ({ className: p.className, probability: p.probability.toFixed(2) }));
-    localStorage.setItem('doorResults', JSON.stringify(results));
-    window.location.href = "resultsFinal.html";
-}
+// function showResults(prediction, capturedImage) {
+//     let results = prediction.map(p => ({ className: p.className, probability: p.probability.toFixed(2) }));
+//     localStorage.setItem('doorResults', JSON.stringify(results));
+//     window.location.href = "resultsFinal.html";
+// }
 
-function exitPage() {
-    window.location.href = "page1.html";
-}
+// function exitPage() {
+//     window.location.href = "page1.html";
+// }
 
-window.onload = init;
+// window.onload = init;
 
-function showResults(prediction, capturedImage) {
-            let results = prediction.map(p => ({ className: p.className, probability: p.probability.toFixed(2) }));
-            localStorage.setItem('doorResults', JSON.stringify(results));
-            window.location.href = "resultsFinal.html";
-        }
+// function showResults(prediction, capturedImage) {
+//             let results = prediction.map(p => ({ className: p.className, probability: p.probability.toFixed(2) }));
+//             localStorage.setItem('doorResults', JSON.stringify(results));
+//             window.location.href = "resultsFinal.html";
+//         }
 
-function stopWebCam(e) {
-  var stream = video.srcObject;
-  var tracks = stream.getTracks();
+// function stopWebCam(e) {
+//   var stream = video.srcObject;
+//   var tracks = stream.getTracks();
 
-  for (var i = 0; i < tracks.length; i++) {
-    var track = tracks[i];
-    track.stop();
-  }
+//   for (var i = 0; i < tracks.length; i++) {
+//     var track = tracks[i];
+//     track.stop();
+//   }
 
-  video.srcObject = null;
-}
+//   video.srcObject = null;
+// }
 
-        window.onload = init;
+//         window.onload = init;
     </script>
 
         
@@ -131,7 +131,7 @@ if (navigator.mediaDevices.getUserMedia) {
     <button class="snap-button" onclick="snapPhoto()">SnapPhoto<i class="fas fa-camera"></i></button>
     <button class="exit-button" onclick="exitPage()">BBBB<i class="fas fa-times"></i></button>
     <button class="exit-button" onclick="stopWebCam()">CCC<i class="fas fa-times"></i></button>
-    <button class="flash-button"><i class="fas fa-bolt">DDDD</i></button>
+    <button class="flash-button"><i class="fas fa-bolt">FFFFFFFFF</i></button>
 </div>
 
 
