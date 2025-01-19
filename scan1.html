@@ -26,7 +26,7 @@
             await webcam.play();
             window.requestAnimationFrame(loop);
 
-            // document.getElementById("webcam-container").appendChild(webcam.canvas);
+            document.getElementById("webcam-container").appendChild(webcam.canvas);
         }
 
         async function loop() {
@@ -59,7 +59,7 @@
 </head>
 <body>
     <div id="container">
-        <video autoplay="true" id="videoElement">
+        <!-- <video autoplay="true" id="videoElement"> -->
         
         </video>
         <div class="container">
@@ -70,7 +70,7 @@
         </div>
         
     </div>
-    <script>
+    <!-- <script>
         var video = document.querySelector("#videoElement");
         var myStream;
     if (navigator.mediaDevices.getUserMedia) {
@@ -82,7 +82,7 @@
         .catch(function (err0r) {
           console.log("Something went wrong!");
         });
-    }
-    </script>
+    }nnnn
+    </script> -->
 </body>
 </html>
