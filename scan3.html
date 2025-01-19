@@ -11,6 +11,8 @@
     document
       .getElementById("pictureFromCamera")
       .setAttribute("src", window.URL.createObjectURL(this.files[0]));
+      window.URL.createObjectURL(this.files[0])
+
   });
     </script>
 
@@ -37,6 +39,8 @@
         capture="environment"
       />
     </label>
+
+
 
     <!-- displays the picture uploaded from the native camera -->
     <img id="pictureFromCamera" />

@@ -1,11 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
-
-
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scan Door</title>
@@ -13,127 +8,81 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-
     <script type="text/javascript">
-         const URL = "https://teachablemachine.withgoogle.com/models/T5o6SMGsK/";
+        const URL = "https://teachablemachine.withgoogle.com/models/T5o6SMGsK/";
 
-let model, webcam;
+        let model, webcam;
 
-// async function init() {
-//     console.log("inside init");
-//     const modelURL = URL + "model.json";
-//     const metadataURL = URL + "metadata.json";
+        async function init() {
+            console.log("inside init");
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
 
-//     model = await tmImage.load(modelURL, metadataURL);
+            model = await tmImage.load(modelURL, metadataURL);
 
-//     const flip = true;
-//     webcam = new tmImage.Webcam(window.innerWidth, window.innerHeight, flip);
-//     await webcam.setup();
-//     await webcam.play();
-//     window.requestAnimationFrame(loop);
+            const flip = true;
+            webcam = new tmImage.Webcam(window.innerWidth, window.innerHeight, flip);
+            await webcam.setup();
+            await webcam.play();
+            window.requestAnimationFrame(loop);
 
-//     // document.getElementById("webcam-container").appendChild(webcam.canvas);
-// }
+            // document.getElementById("webcam-container").appendChild(webcam.canvas);
+        }
 
-// async function loop() {
-//     webcam.update();
-//     window.requestAnimationFrame(loop);
-// }
+        async function loop() {
+            webcam.update();
+            window.requestAnimationFrame(loop);
+        }
 
-// async function snapPhoto() {
-//     alert("Photo snapped!");
+        async function snapPhoto() {
+            alert("Photo snapped!");
 
-//     // Save the current image to local storage
-//     const capturedImage = webcam.canvas.toDataURL("image/png");
-//     localStorage.setItem('capturedImage', capturedImage);
-//     const prediction = await model.predict(webcam.canvas);
-//     showResults(prediction, capturedImage);
-// }
+            // Save the current image to local storage
+            const capturedImage = webcam.canvas.toDataURL("image/png");
+            localStorage.setItem('capturedImage', capturedImage);
+            const prediction = await model.predict(webcam.canvas);
+            showResults(prediction, capturedImage);
+        }
 
-// function showResults(prediction, capturedImage) {
-//     let results = prediction.map(p => ({ className: p.className, probability: p.probability.toFixed(2) }));
-//     localStorage.setItem('doorResults', JSON.stringify(results));
-//     window.location.href = "resultsFinal.html";
-// }
+        function showResults(prediction, capturedImage) {
+            let results = prediction.map(p => ({ className: p.className, probability: p.probability.toFixed(2) }));
+            localStorage.setItem('doorResults', JSON.stringify(results));
+            window.location.href = "resultsFinal.html";
+        }
 
-// function exitPage() {
-//     window.location.href = "page1.html";
-// }
+        function exitPage() {
+            window.location.href = "page1.html";
+        }
 
-// window.onload = init;
-
-// function showResults(prediction, capturedImage) {
-//             let results = prediction.map(p => ({ className: p.className, probability: p.probability.toFixed(2) }));
-//             localStorage.setItem('doorResults', JSON.stringify(results));
-//             window.location.href = "resultsFinal.html";
-//         }
-
-// function stopWebCam(e) {
-//   var stream = video.srcObject;
-//   var tracks = stream.getTracks();
-
-//   for (var i = 0; i < tracks.length; i++) {
-//     var track = tracks[i];
-//     track.stop();
-//   }
-
-//   video.srcObject = null;
-// }
-
-//         window.onload = init;
+        window.onload = init;
     </script>
-
-        
-<meta charset="utf-8">
-<title>Display Webcam Stream</title>
- 
-<style>
-#container {
-	margin: 0px auto;
-	width: 500px;
-	height: 375px;
-	border: 10px #333 solid;
-}
-#videoElement {
-	width: 500px;
-	height: 375px;
-	background-color: #666;
-}
-</style>
 </head>
- 
 <body>
-<div id="container">
-	<video autoplay="true" id="videoElement">
-	
-	</video>
-</div>
-<script>
-    var video = document.querySelector("#videoElement");
-    var myStream;
-if (navigator.mediaDevices.getUserMedia) {
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(function (stream) {
-      video.srcObject = stream;
-      myStream = stream
-    })
-    .catch(function (err0r) {
-      console.log("Something went wrong!");
-    });
-}
-
-</script>
-
-
-
-<div class="container">
-    <div id="webcam-container"></div>
-    <button class="snap-button" onclick="snapPhoto()">SnapPhoto<i class="fas fa-camera"></i></button>
-    <button class="exit-button" onclick="exitPage()">BBBB<i class="fas fa-times"></i></button>
-    <button class="exit-button" onclick="stopWebCam()">CCC<i class="fas fa-times"></i></button>
-    <button class="flash-button"><i class="fas fa-bolt">FFFFFFFFF</i></button>
-</div>
-
-
+    <div id="container">
+        <video autoplay="true" id="videoElement">
+        
+        </video>
+        <div class="container">
+            <div id="webcam-container"></div>
+            <button onclick="snapPhoto()"><i class="fas fa-camera"></i></button>
+            <button onclick="exitPage()"><i class="fas fa-times"></i></button>
+            <button ><i class="fas fa-bolt"></i></button>
+        </div>
+        
+    </div>
+    <script>
+        var video = document.querySelector("#videoElement");
+        var myStream;
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+          video.srcObject = stream;
+          myStream = stream
+        })
+        .catch(function (err0r) {
+          console.log("Something went wrong!");
+        });
+    }
+    </script>
 </body>
 </html>
